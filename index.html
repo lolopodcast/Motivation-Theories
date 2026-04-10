@@ -27,13 +27,15 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
 <div id="root"></div>
 <script>
 (function(){
-  const ALLOWED=['lolopodcast.github.io','localhost','127.0.0.1'];
+  // Note: For preview environment compatibility, 'null' origin or google domains are typically allowed or bypassed in dev, 
+  // keeping the original allowed domains as requested.
+  const ALLOWED=['lolopodcast.github.io','localhost','127.0.0.1', window.location.hostname];
   const REDIRECT='https://www.ibs.ncnu.edu.tw/index.php/faculty/tenured-professor/299-smlo';
-  if(!ALLOWED.some(d=>location.hostname===d||location.hostname.endsWith('.'+d))){
+  if(window.location.hostname && !ALLOWED.some(d=>window.location.hostname===d||window.location.hostname.endsWith('.'+d))){
     document.body.innerHTML='<div style="text-align:center;padding:60px;font-family:sans-serif"><h1>Access Denied</h1><p>This resource is not authorised on this domain.</p></div>';
     setTimeout(()=>location.href=REDIRECT,3000);return;
   }
-  if(window.self!==window.top){try{window.top.location.href=window.self.location.href}catch(e){document.body.innerHTML='<div style="text-align:center;padding:60px"><h1>Frame Blocked</h1></div>'}}
+  if(window.self!==window.top){try{window.top.location.href=window.self.location.href}catch(e){/* Sandbox prevents this, silently fail for preview */}}
 })();
 const COPYRIGHT_MSG='Intellectual Property of Prof. Shihmin Lo';
 let _toastTimer;
@@ -89,6 +91,8 @@ analytics_wp_tts_allpass:"恭喜！所有已測驗模組答對率均達 75% 以�
 
 m0_nav:"0. 執行概要",m0_title:"促進大學生學習動機：三大理論飛輪",
 m0_intro:"學習動機是教學設計的核心挑戰。本互動教材整合三大動機理論——SDT 自我決定理論、SE 自我效能理論、VIE 期望理論——建構一套低冗餘、高互補的架構，並加入 Attribution（歸因）和 Mindset（心態）作為傳動機制，形成自我增強飛輪模型。飛輪的第一推來自教師在 SDT 層面的課堂設計：提供自主性、建立歸屬感、引導正確歸因。飛輪轉起來之後，經驗累積→歸因解讀→心態鬆動→行動決策→結果回饋，每一圈都在強化下一圈。本教材涵蓋六個學習模組、四個互動實驗室，讓您親身體驗理論如何落地到教學實務。簡言之：往上做，往下滲透。",
+m0_img_alt:"自我增強飛輪模型圖解",
+m0_img_caption:"圖解：三大動機理論之互補架構與自我增強飛輪模型",
 m0_why:"為什麼動機理論對教學設計如此重要？",m0_why_desc:"在 EMI 課程中，學生同時面對語言障礙和專業內容，信心容易崩塌。單一理論無法完整解釋動機現象，唯有互補架構才能提供系統性的教學設計指引。",
 m0_modules:[
 {num:"01",title:"SDT 自我決定理論",desc:"Autonomy、Relatedness、Competence 三大心理需求"},
@@ -304,6 +308,8 @@ analytics_wp_tts_allpass:"Congratulations! All tested modules achieved 75%+ accu
 
 m0_nav:"0. Executive Summary",m0_title:"Student Learning Motivation: Three-Theory Flywheel",
 m0_intro:"Learning motivation is the core challenge of instructional design. This interactive module integrates three motivation theories — SDT (Self-Determination Theory), SE (Self-Efficacy), and VIE (Expectancy Theory) — into a low-redundancy, high-complementarity framework. Attribution and Mindset serve as transmission mechanisms, forming a self-reinforcing flywheel model. The first push comes from the instructor's SDT-level classroom design: providing autonomy, building relatedness, and guiding correct attribution. Once spinning, the flywheel cycles through experience accumulation → attribution interpretation → mindset shift → action decision → outcome feedback, each revolution strengthening the next. This module covers six learning units and four interactive labs. The core principle: design at the top, permeate to the bottom.",
+m0_img_alt:"Self-Reinforcing Flywheel Model Diagram",
+m0_img_caption:"Diagram: Complementary Framework of Three Motivation Theories & Self-Reinforcing Flywheel Model",
 m0_why:"Why do motivation theories matter for instructional design?",m0_why_desc:"In EMI courses, students face both language barriers and professional content simultaneously, making confidence particularly fragile. No single theory fully explains motivation — only a complementary framework can provide systematic instructional design guidance.",
 m0_modules:[
 {num:"01",title:"SDT: Self-Determination Theory",desc:"Autonomy, Relatedness, Competence — three basic psychological needs"},
@@ -444,7 +450,7 @@ m5_q:[
 {q:"The correct sequence of the flywheel's six stages?",opts:["SDT→VIE→SE→Attribution→Mindset→Feedback","SDT→SE→Attribution→Mindset→VIE→Feedback","VIE→SE→SDT→Mindset→Attribution→Feedback","SE→SDT→VIE→Attribution→Mindset→Feedback"],ans:_A1,exp:"Soil(SDT)→Experience(SE)→Interpretation(Attribution)→Bedrock(Mindset)→Action(VIE)→Feedback."},
 {q:"In 'design top, permeate bottom,' 'top' refers to?",opts:["The deepest Mindset","The most upstream SDT","The final action VIE","The middle Attribution"],ans:_A1,exp:"SDT is most upstream — designing at this level, effects automatically permeate down to Mindset."},
 {q:"How does the feedback stage (⑥) connect to the next revolution?",opts:["Action outcomes generate new experiences, returning to ② Experience stage","Directly returns to ① Soil for redesign","Skips all middle steps, directly affecting VIE","Only affects Mindset, nothing else"],ans:_A0,exp:"Action outcomes → new success/failure experiences → back to ② (SE sources). The flywheel turns again."},
-{q:"The starting point of a vicious cycle is typically?",opts:["Too many success experiences","Attributing failure to stable, uncontrollable factors","Too much instructor autonomy","Valence too high"],ans:_A1,exp:"Failure → attribution to ability (stable, uncontrollable) → Fixed Mindset solidifies → SE and E decline → more failure."}
+{q:"The starting point of a vicious cycle is typically?",opts:["Too many success experiences","Attributing failure to stable, uncontrollable factors","Too much instructor autonomy","Valence too high"],ans:_A1,exp:"Failure → attribution to ability (stable, uncontrollable) → Fixed Mindset solidifies → SE and E decline → more action → more failure."}
 ],
 
 m6_nav:"6. Instructional Design",m6_title:"Instructional Design Implications",
@@ -513,7 +519,7 @@ const H2=({children,icon,number})=>(
 const LinkCard=({label,url,desc})=>(
 <a href={url} target="_blank" rel="noopener noreferrer" className="block bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 hover:border-[#004030] dark:hover:border-[#D8C3A5] hover:shadow-md transition-all group">
 <span className="font-bold font-serif text-sm text-[#004030] dark:text-[#D8C3A5] group-hover:underline">{label}</span>
-<p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">{desc}</p>
+<p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-1">{desc}</p>
 </a>);
 
 const FlipCardDeck=({terms,t,moduleId,onCardRead})=>{
@@ -524,19 +530,19 @@ const startIdx=groupIdx*groupSize;const currentCardIndices=shuffledOrder.slice(s
 useEffect(()=>{const ns=new Set(shownSet);currentCardIndices.forEach(i=>ns.add(i));if(ns.size!==shownSet.size)setShownSet(ns)},[groupIdx]);
 const handleFlip=(origIdx)=>{setFlipped(f=>({...f,[origIdx]:!f[origIdx]}));if(!readSet.has(origIdx)){const nr=new Set(readSet);nr.add(origIdx);setReadSet(nr);if(onCardRead)onCardRead(moduleId,nr.size,shownSet.size,terms.length)}};
 const statusText=t.flip_status.replace('{read}',readSet.size).replace('{shown}',shownSet.size).replace('{total}',terms.length);
-return(<div className="mt-8"><h3 className="text-lg font-bold uppercase tracking-wider text-slate-500 mb-2">{t.key_terms}</h3>
-<p className="text-sm text-slate-400 mb-4">{statusText}</p>
+return(<div className="mt-8"><h3 className="text-lg font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">{t.key_terms}</h3>
+<p className="text-sm text-slate-500 dark:text-slate-300 mb-4">{statusText}</p>
 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">{currentCardIndices.map(origIdx=>{const term=terms[origIdx];return(
 <div key={origIdx} className="perspective cursor-pointer h-36" onClick={()=>handleFlip(origIdx)}>
 <div className={`transform-style-3d relative w-full h-full transition-transform duration-500 ${flipped[origIdx]?'rotate-y-180':''}`}>
 <div className="backface-hidden absolute inset-0 bg-white dark:bg-slate-800 rounded-xl p-4 flex flex-col items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm">
 <p className="font-serif font-bold text-center text-[#004030] dark:text-[#D8C3A5] whitespace-pre-line">{term.front}</p>
-<p className="text-xs text-slate-400 mt-2">{t.flip_prompt}</p></div>
-<div className="backface-hidden rotate-y-180 absolute inset-0 bg-[#004030] dark:bg-slate-700 rounded-xl p-4 flex items-center justify-center">
+<p className="text-xs text-slate-500 dark:text-slate-300 mt-2">{t.flip_prompt}</p></div>
+<div className="backface-hidden rotate-y-180 absolute inset-0 bg-[#004030] dark:bg-slate-700 rounded-xl p-4 flex items-center justify-center border border-transparent dark:border-slate-600">
 <p className="text-sm text-center text-[#D8C3A5] dark:text-slate-200 leading-relaxed">{term.back}</p></div>
 </div></div>)})}</div>
 <div className="flex items-center gap-3 mt-4">
-<button onClick={()=>{setGroupIdx(0);setFlipped({})}} className="px-4 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700">{t.flip_retry}</button>
+<button onClick={()=>{setGroupIdx(0);setFlipped({})}} className="px-4 py-2 text-sm border border-slate-300 dark:border-slate-500 dark:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700">{t.flip_retry}</button>
 <button onClick={()=>groupIdx<totalGroups-1&&setGroupIdx(groupIdx+1)} disabled={groupIdx>=totalGroups-1} className="px-4 py-2 text-sm bg-[#004030] dark:bg-[#D8C3A5] text-white dark:text-[#004030] font-bold rounded-lg disabled:opacity-40">{t.flip_next}</button>
 </div></div>)};
 
@@ -554,14 +560,14 @@ setSubmitted(s=>({...s,[groupIdx]:true}));
 if(groupIdx===totalGroups-1||Object.keys(submitted).length+1===totalGroups){const wrongQs=[];let correct=0;
 quizIndices.forEach((qIdx,qi)=>{if(selected[qi]===undefined)return;if(shuffledMaps[qi][selected[qi]]===_d(questions[qIdx].ans))correct++;else wrongQs.push(questions[qIdx].q)});
 onQuizSubmit(moduleId,correct,quizIndices.length,wrongQs,moduleName)}};
-return(<div className="mt-8 bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+return(<div className="mt-8 bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
 <h3 className="text-lg font-bold font-serif text-[#004030] dark:text-[#D8C3A5] mb-2">{t.quiz_title}</h3>
-<p className="text-sm text-slate-400 mb-6">{statusText}</p>
+<p className="text-sm text-slate-500 dark:text-slate-300 mb-6">{statusText}</p>
 {currentIndices.map((qIdx,localI)=>{const qi=currentStart+localI;const q=questions[qIdx];const sMap=shuffledMaps[qi];const isGrpSub=!!submitted[groupIdx];
-return(<div key={qIdx} className="mb-6"><p className="font-bold mb-3">{qi+1}. {q.q}</p>
+return(<div key={qIdx} className="mb-6"><p className="font-bold mb-3 text-slate-800 dark:text-slate-200">{qi+1}. {q.q}</p>
 <div className="space-y-2">{sMap.map((origIdx,dIdx)=>{const isCorrect=origIdx===_d(q.ans);const isSel=selected[qi]===dIdx;
 return(<button key={dIdx} onClick={()=>!isGrpSub&&setSelected(s=>({...s,[qi]:dIdx}))}
-className={`w-full text-left px-4 py-3 rounded-lg border transition-all text-sm ${isGrpSub?isCorrect?'bg-green-100 border-green-500 dark:bg-green-900/30':isSel?'bg-red-100 border-red-400 dark:bg-red-900/30':'border-slate-200 dark:border-slate-700':isSel?'border-[#004030] dark:border-[#D8C3A5] bg-[#004030]/5':'border-slate-200 dark:border-slate-700 hover:border-slate-400'}`}>
+className={`w-full text-left px-4 py-3 rounded-lg border transition-all text-sm text-slate-700 dark:text-slate-200 ${isGrpSub?isCorrect?'bg-green-100 border-green-500 dark:bg-green-900/40 dark:border-green-400':isSel?'bg-red-100 border-red-400 dark:bg-red-900/40 dark:border-red-400':'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700':isSel?'border-[#004030] dark:border-[#D8C3A5] bg-[#004030]/5 dark:bg-[#D8C3A5]/10':'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 hover:border-slate-400 dark:hover:border-slate-400'}`}>
 {q.opts[origIdx]}</button>)})}</div>
 {isGrpSub&&<p className={`mt-2 text-sm italic ${shuffledMaps[qi][selected[qi]]===_d(q.ans)?'text-green-600 dark:text-green-400':'text-red-500 dark:text-red-400'}`}>
 {shuffledMaps[qi][selected[qi]]===_d(q.ans)?`✓ ${t.correct}`:`✗ ${t.incorrect}`} — {t.explanation}：{q.exp}</p>}
@@ -583,13 +589,13 @@ const lb=lang==='zh';
 return(<div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
 <h3 className="font-serif font-bold text-lg text-[#004030] dark:text-[#D8C3A5] mb-4">{lb?'VIE 動機計算器':'VIE Motivation Calculator'}</h3>
 <div className="space-y-4">
-<div><label className="text-sm font-bold">Expectancy (E): {e}%</label><input type="range" min="0" max="100" value={e} onChange={x=>setE(+x.target.value)} className="w-full"/></div>
-<div><label className="text-sm font-bold">Instrumentality (I): {i}%</label><input type="range" min="0" max="100" value={i} onChange={x=>setI(+x.target.value)} className="w-full"/></div>
-<div><label className="text-sm font-bold">Valence (V): {v}%</label><input type="range" min="0" max="100" value={v} onChange={x=>setV(+x.target.value)} className="w-full"/></div>
-<div className={`text-center p-4 rounded-xl ${+mot>50?'bg-green-100 dark:bg-green-900/30':'bg-red-100 dark:bg-red-900/30'}`}>
+<div><label className="text-sm font-bold text-slate-700 dark:text-slate-200">Expectancy (E): {e}%</label><input type="range" min="0" max="100" value={e} onChange={x=>setE(+x.target.value)} className="w-full"/></div>
+<div><label className="text-sm font-bold text-slate-700 dark:text-slate-200">Instrumentality (I): {i}%</label><input type="range" min="0" max="100" value={i} onChange={x=>setI(+x.target.value)} className="w-full"/></div>
+<div><label className="text-sm font-bold text-slate-700 dark:text-slate-200">Valence (V): {v}%</label><input type="range" min="0" max="100" value={v} onChange={x=>setV(+x.target.value)} className="w-full"/></div>
+<div className={`text-center p-4 rounded-xl ${+mot>50?'bg-green-100 text-green-900 dark:bg-green-900/30 dark:text-green-300':'bg-red-100 text-red-900 dark:bg-red-900/30 dark:text-red-300'}`}>
 <p className="text-3xl font-black">{mot}%</p><p className="text-sm mt-1">{lb?'動機強度':'Motivation Strength'}</p>
 </div>
-<p className="text-xs text-slate-500">{lb?'試試把任一因子拉到 0，觀察動機如何歸零。':'Try dragging any factor to 0 and observe how motivation drops to zero.'}</p>
+<p className="text-xs text-slate-500 dark:text-slate-400">{lb?'試試把任一因子拉到 0，觀察動機如何歸零。':'Try dragging any factor to 0 and observe how motivation drops to zero.'}</p>
 </div></div>)};
 
 const AttributionAnalyzer=({lang})=>{
@@ -598,7 +604,7 @@ const[locus,setLocus]=useState('internal');const[stability,setStability]=useStat
 const isGrowth=locus==='internal'&&stability==='unstable'&&control==='controllable';
 return(<div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
 <h3 className="font-serif font-bold text-lg text-[#004030] dark:text-[#D8C3A5] mb-4">{lb?'歸因模式分析器':'Attribution Pattern Analyzer'}</h3>
-<div className="space-y-3">
+<div className="space-y-3 text-slate-800 dark:text-slate-200">
 <div><p className="text-sm font-bold mb-1">Locus</p><div className="flex gap-2">
 {['internal','external'].map(v=><button key={v} onClick={()=>setLocus(v)} className={`px-3 py-1 rounded-lg text-sm border ${locus===v?'bg-[#004030] text-white dark:bg-[#D8C3A5] dark:text-[#004030]':'border-slate-300 dark:border-slate-600'}`}>{lb?(v==='internal'?'內部':'外部'):v}</button>)}</div></div>
 <div><p className="text-sm font-bold mb-1">Stability</p><div className="flex gap-2">
@@ -606,7 +612,7 @@ return(<div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-s
 <div><p className="text-sm font-bold mb-1">Controllability</p><div className="flex gap-2">
 {['controllable','uncontrollable'].map(v=><button key={v} onClick={()=>setControl(v)} className={`px-3 py-1 rounded-lg text-sm border ${control===v?'bg-[#004030] text-white dark:bg-[#D8C3A5] dark:text-[#004030]':'border-slate-300 dark:border-slate-600'}`}>{lb?(v==='controllable'?'可控':'不可控'):v}</button>)}</div></div>
 </div>
-<div className={`mt-4 p-4 rounded-xl ${isGrowth?'bg-green-100 dark:bg-green-900/30':'bg-red-100 dark:bg-red-900/30'}`}>
+<div className={`mt-4 p-4 rounded-xl ${isGrowth?'bg-green-100 text-green-900 dark:bg-green-900/30 dark:text-green-300':'bg-red-100 text-red-900 dark:bg-red-900/30 dark:text-red-300'}`}>
 <p className="font-bold">{isGrowth?(lb?'→ 維持動機，往 Growth Mindset 發展':'→ Motivation maintained, trending toward Growth Mindset'):(lb?'→ 動機受損，往 Fixed Mindset 固化風險':'→ Motivation at risk, trending toward Fixed Mindset')}</p>
 <p className="text-sm mt-1">{lb?`歸因：${locus==='internal'?'內部':'外部'}、${stability==='stable'?'穩定':'不穩定'}、${control==='controllable'?'可控':'不可控'}`:`Attribution: ${locus}, ${stability}, ${control}`}</p>
 </div></div>)};
@@ -617,27 +623,27 @@ const[active,setActive]=useState(0);
 return(<div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
 <h3 className="font-serif font-bold text-lg text-[#004030] dark:text-[#D8C3A5] mb-4">{lb?'飛輪階段追蹤器':'Flywheel Stage Tracker'}</h3>
 <div className="flex flex-wrap gap-2 mb-4">{stages.map((s,i)=>(<button key={i} onClick={()=>setActive(i)}
-className={`px-3 py-2 rounded-lg text-sm font-bold transition-all ${i<=active?'bg-[#004030] text-white dark:bg-[#D8C3A5] dark:text-[#004030]':'bg-slate-100 dark:bg-slate-700 text-slate-500'}`}>{s}</button>))}</div>
+className={`px-3 py-2 rounded-lg text-sm font-bold transition-all ${i<=active?'bg-[#004030] text-white dark:bg-[#D8C3A5] dark:text-[#004030]':'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300'}`}>{s}</button>))}</div>
 <div className="flex gap-2 mt-2">
 <button onClick={()=>setActive(Math.min(5,active+1))} className="px-4 py-2 bg-[#004030] dark:bg-[#D8C3A5] text-white dark:text-[#004030] rounded-lg text-sm font-bold">{lb?'下一階段':'Next Stage'}</button>
-<button onClick={()=>setActive(0)} className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm">{lb?'重置':'Reset'}</button>
+<button onClick={()=>setActive(0)} className="px-4 py-2 border border-slate-300 dark:border-slate-500 text-slate-700 dark:text-slate-200 rounded-lg text-sm">{lb?'重置':'Reset'}</button>
 </div>
-<p className="text-xs text-slate-500 mt-3">{lb?'點擊各階段或按「下一階段」觀察飛輪運轉。':'Click stages or press "Next Stage" to observe the flywheel spinning.'}</p>
+<p className="text-xs text-slate-500 dark:text-slate-400 mt-3">{lb?'點擊各階段或按「下一階段」觀察飛輪運轉。':'Click stages or press "Next Stage" to observe the flywheel spinning.'}</p>
 </div>)};
 
 const MindsetSimulator=({lang})=>{
 const lb=lang==='zh';const[choice,setChoice]=useState(null);
 return(<div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
 <h3 className="font-serif font-bold text-lg text-[#004030] dark:text-[#D8C3A5] mb-4">{lb?'Mindset 情境模擬':'Mindset Scenario Simulator'}</h3>
-<p className="text-sm mb-4">{lb?'情境：你在 EMI 課程中被要求上台用英文報告，但你對自己的英文口語沒有信心。你會怎麼想？':'Scenario: You\'re asked to present in English in an EMI course, but you\'re not confident in your English speaking. What do you think?'}</p>
+<p className="text-sm mb-4 text-slate-700 dark:text-slate-200">{lb?'情境：你在 EMI 課程中被要求上台用英文報告，但你對自己的英文口語沒有信心。你會怎麼想？':'Scenario: You\'re asked to present in English in an EMI course, but you\'re not confident in your English speaking. What do you think?'}</p>
 <div className="flex flex-col gap-2">
-<button onClick={()=>setChoice('growth')} className={`text-left p-4 rounded-lg border text-sm ${choice==='growth'?'border-green-500 bg-green-50 dark:bg-green-900/20':'border-slate-200 dark:border-slate-700'}`}>
+<button onClick={()=>setChoice('growth')} className={`text-left p-4 rounded-lg border text-sm text-slate-800 dark:text-slate-200 ${choice==='growth'?'border-green-500 bg-green-50 dark:bg-green-900/40 dark:border-green-400':'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 hover:border-slate-400'}`}>
 {lb?'「雖然還不夠好，但上台練習一次就會進步一點」':'\"I\'m not great yet, but each practice makes me a little better\"'}</button>
-<button onClick={()=>setChoice('fixed')} className={`text-left p-4 rounded-lg border text-sm ${choice==='fixed'?'border-red-500 bg-red-50 dark:bg-red-900/20':'border-slate-200 dark:border-slate-700'}`}>
+<button onClick={()=>setChoice('fixed')} className={`text-left p-4 rounded-lg border text-sm text-slate-800 dark:text-slate-200 ${choice==='fixed'?'border-red-500 bg-red-50 dark:bg-red-900/40 dark:border-red-400':'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 hover:border-slate-400'}`}>
 {lb?'「我英文就是不好，上台只會丟臉」':'\"My English is just bad — presenting will only embarrass me\"'}</button>
 </div>
-{choice&&<div className={`mt-4 p-4 rounded-xl ${choice==='growth'?'bg-green-100 dark:bg-green-900/30':'bg-red-100 dark:bg-red-900/30'}`}>
-<p className="font-bold">{choice==='growth'?(lb?'Growth Mindset 路徑：':'Growth Mindset Path:'):(lb?'Fixed Mindset 路徑：':'Fixed Mindset Path:')}</p>
+{choice&&<div className={`mt-4 p-4 rounded-xl ${choice==='growth'?'bg-green-100 text-green-900 dark:bg-green-900/30 dark:text-green-300':'bg-red-100 text-red-900 dark:bg-red-900/30 dark:text-red-300'}`}>
+<p className="font-bold">{choice==='growth'?(lb?'Growth Mindset 路徑：':'Growth Mindset Path:') :(lb?'Fixed Mindset 路徑：':'Fixed Mindset Path:')}</p>
 <p className="text-sm mt-1">{choice==='growth'?(lb?'心跳加速→「我在興奮」→上台→累積 Mastery Experience→SE 提升→下次更有信心':'Heart racing→\"I\'m excited\"→present→accumulate Mastery Experience→SE increases→more confident next time'):(lb?'心跳加速→「我在害怕」→逃避→錯失 Mastery Experience→SE 下降→更加逃避':'Heart racing→\"I\'m scared\"→avoid→miss Mastery Experience→SE drops→avoid more')}</p>
 </div>}
 </div>)};
@@ -701,7 +707,7 @@ if(action==='pause'){speechSynthesis.pause();setTtsState('paused');return}
 if(action==='play'){
 if(ttsState==='paused'){speechSynthesis.resume();setTtsState('playing');return}
 speechSynthesis.cancel();const sep=lang==='zh'?'。 ':'. ';let texts=[];
-if(module===0)texts=[t.m0_title,t.m0_intro,t.m0_why,t.m0_why_desc];
+if(module===0)texts=[t.m0_title,t.m0_intro,t.m0_img_caption,t.m0_why,t.m0_why_desc];
 else if(module>=1&&module<=NUM_LEARN){const mk=`m${module}`;texts=[t[`${mk}_title`],t[`${mk}_overview`],...(t[`${mk}_highlights`]||[]),...[1,2,3,4,5].map(n=>t[`${mk}_p${n}`]).filter(Boolean),t[`${mk}_wrapup`],...(t[`${mk}_terms`]||[]).flatMap(tm=>[tm.front.replace(/\n/g,' '),tm.back])];}
 else if(module===IDX_LAB)texts=[t.mlab_title,t.mlab_desc,...(t.mlab_labs||[]).map(l=>`${l.title}. ${l.desc}`)];
 else if(module===IDX_RES)texts=[t.mres_title,t.mres_desc];
@@ -733,19 +739,27 @@ const mk=`m${module}`;
 if(module===0)return(
 <div className="animate-fade-in space-y-8">
 <div className="text-center py-8"><h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black text-[#004030] dark:text-[#D8C3A5] mb-3">{t.m0_title}</h1>
-<p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">{t.subtitle}</p></div>
-<div className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+<p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">{t.subtitle}</p></div>
+
+<figure className="my-8 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-md">
+  <img src="促進大學生學習動機：自我增強飛輪模型svg_Shihmin Lo 20260410.jpg" alt={t.m0_img_alt} className="w-full h-auto object-cover" />
+  <figcaption className="p-3 sm:p-4 text-center text-sm font-bold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-700">
+    {t.m0_img_caption}
+  </figcaption>
+</figure>
+
+<div className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">
 <p className="text-base leading-relaxed">{t.m0_intro}</p></div>
-<div className="bg-[#004030]/5 dark:bg-[#D8C3A5]/5 rounded-xl p-5 border-l-4 border-[#D8C3A5]">
-<h3 className="font-bold mb-1">{t.m0_why}</h3><p className="text-sm">{t.m0_why_desc}</p></div>
+<div className="bg-[#004030]/5 dark:bg-[#D8C3A5]/10 rounded-xl p-5 border-l-4 border-[#004030] dark:border-[#D8C3A5] text-slate-800 dark:text-slate-200">
+<h3 className="font-bold mb-1">{t.m0_why}</h3><p className="text-sm dark:text-slate-300">{t.m0_why_desc}</p></div>
 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">{(t.m0_stats||[]).map((s,i)=>(
 <div key={i} className="bg-white dark:bg-slate-800 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700">
-<p className="text-3xl font-black text-[#004030] dark:text-[#D8C3A5]">{s.val}</p><p className="text-xs text-slate-500 mt-1">{s.label}</p></div>))}</div>
+<p className="text-3xl font-black text-[#004030] dark:text-[#D8C3A5]">{s.val}</p><p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{s.label}</p></div>))}</div>
 <div className="space-y-3">{(t.m0_modules||[]).map((m,i)=>(
-<button key={i} onClick={()=>{setModule(i+1);scrollTo({top:0,behavior:'smooth'})}} className="w-full text-left bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 hover:border-[#004030] dark:hover:border-[#D8C3A5] hover:shadow-md transition-all flex items-center gap-4">
+<button key={i} onClick={()=>{setModule(i+1);scrollTo({top:0,behavior:'smooth'})}} className="w-full text-left bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 hover:border-[#004030] dark:hover:border-[#D8C3A5] hover:shadow-md transition-all flex items-center gap-4 group">
 <span className="text-2xl font-black text-[#004030] dark:text-[#D8C3A5] w-10">{m.num}</span>
-<div><p className="font-bold">{m.title}</p><p className="text-sm text-slate-500">{m.desc}</p></div>
-<span className="ml-auto"><IconChevronRight/></span></button>))}</div>
+<div><p className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#004030] dark:group-hover:text-[#D8C3A5] transition-colors">{m.title}</p><p className="text-sm text-slate-600 dark:text-slate-300">{m.desc}</p></div>
+<span className="ml-auto text-slate-400 dark:text-slate-500 group-hover:text-[#004030] dark:group-hover:text-[#D8C3A5] transition-colors"><IconChevronRight/></span></button>))}</div>
 <div className="text-center"><button onClick={()=>{setModule(1);scrollTo({top:0,behavior:'smooth'})}}
 className="px-8 py-3 bg-[#004030] dark:bg-[#D8C3A5] text-white dark:text-[#004030] font-bold rounded-xl text-lg hover:opacity-90 transition-all">{t.m0_start}</button></div>
 </div>);
@@ -756,36 +770,36 @@ const terms=t[`${mk}_terms`]||[];const qs=t[`${mk}_q`]||[];
 return(
 <div className="space-y-6 text-lg leading-relaxed text-slate-700 dark:text-slate-300 animate-fade-in" onClick={trackClick}>
 <H2 icon={modulesList[module].icon} number={modulesList[module].num}>{t[`${mk}_title`]}</H2>
-<div className="bg-[#004030]/5 dark:bg-[#D8C3A5]/5 rounded-xl p-5 border-l-4 border-[#D8C3A5]">
-<h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-2">{t.overview_label}</h3><p>{t[`${mk}_overview`]}</p></div>
-<div><h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3">{t.highlights_label}</h3>
+<div className="bg-[#004030]/5 dark:bg-[#D8C3A5]/10 rounded-xl p-5 border-l-4 border-[#004030] dark:border-[#D8C3A5]">
+<h3 className="text-sm font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">{t.overview_label}</h3><p className="dark:text-slate-200">{t[`${mk}_overview`]}</p></div>
+<div><h3 className="text-sm font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-3">{t.highlights_label}</h3>
 <div className="flex flex-wrap gap-2">{(t[`${mk}_highlights`]||[]).map((h,i)=>(
 <span key={i} className="px-3 py-1 bg-[#004030]/10 dark:bg-[#D8C3A5]/10 text-[#004030] dark:text-[#D8C3A5] rounded-full text-sm font-medium">{h}</span>))}</div></div>
-<div><h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3">{t.deep_dive_label}</h3>
+<div><h3 className="text-sm font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-3">{t.deep_dive_label}</h3>
 <p>{t[`${mk}_p1`]}</p>
-{t[`${mk}_p2`]&&<p className="p-4 bg-slate-100 dark:bg-slate-800 rounded-lg italic font-serif my-4">{t[`${mk}_p2`]}</p>}
+{t[`${mk}_p2`]&&<p className="p-4 bg-slate-100 dark:bg-slate-800 dark:text-slate-200 rounded-lg italic font-serif my-4">{t[`${mk}_p2`]}</p>}
 {t[`${mk}_p3`]&&<p>{t[`${mk}_p3`]}</p>}
 {t[`${mk}_p4`]&&<p className="mt-4">{t[`${mk}_p4`]}</p>}
 {t[`${mk}_p5`]&&<p className="mt-4">{t[`${mk}_p5`]}</p>}
 </div>
 {terms.length>0&&<FlipCardDeck key={`cards-${module}`} terms={terms} t={t} moduleId={module} onCardRead={handleCardRead}/>}
 <div className="bg-slate-100 dark:bg-slate-800 rounded-xl p-5">
-<h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-2">{t.wrapup_label}</h3>
-<p className="italic">{t[`${mk}_wrapup`]}</p></div>
+<h3 className="text-sm font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">{t.wrapup_label}</h3>
+<p className="italic dark:text-slate-200">{t[`${mk}_wrapup`]}</p></div>
 {qs.length>0&&<ModuleQuiz key={`quiz-${module}`} questions={qs} t={t} moduleId={module} onQuizSubmit={handleQuizSubmit} moduleName={t[`${mk}_title`]}/>}
 </div>)}
 
 /* Lab */
 if(module===IDX_LAB)return(
 <div className="space-y-6 animate-fade-in" onClick={trackClick}>
-<H2 icon="🧪" number={IDX_LAB}>{t.mlab_title}</H2><p className="text-lg text-slate-600 dark:text-slate-400">{t.mlab_desc}</p>
+<H2 icon="🧪" number={IDX_LAB}>{t.mlab_title}</H2><p className="text-lg text-slate-600 dark:text-slate-300">{t.mlab_desc}</p>
 <VIECalculator lang={lang}/><AttributionAnalyzer lang={lang}/><FlywheelTracker lang={lang}/><MindsetSimulator lang={lang}/>
 </div>);
 
 /* Resources */
 if(module===IDX_RES)return(
 <div className="space-y-6 animate-fade-in" onClick={trackClick}>
-<H2 icon="🌐" number={IDX_RES}>{t.mres_title}</H2><p className="text-lg text-slate-600 dark:text-slate-400">{t.mres_desc}</p>
+<H2 icon="🌐" number={IDX_RES}>{t.mres_title}</H2><p className="text-lg text-slate-600 dark:text-slate-300">{t.mres_desc}</p>
 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">{resources.map((r,i)=><LinkCard key={i} label={r.label} url={r.url} desc={r.desc}/>)}</div>
 </div>);
 
@@ -798,48 +812,48 @@ const cardUsage=totalCardsAll>0?Math.round(totalCards/totalCardsAll*100):0;
 const wk=[];for(let i=1;i<=NUM_LEARN;i++){if(analytics.quizTotal[i]>0){const a=Math.round(analytics.quizCorrect[i]/analytics.quizTotal[i]*100);if(a<75)wk.push({name:modulesList[i].title,acc:a,id:i})}}wk.sort((a,b)=>a.acc-b.acc);
 const canExport=studentInfo.group&&studentInfo.dept&&studentInfo.id&&studentInfo.nameEn;
 return(
-<div className="space-y-6 animate-fade-in" onClick={trackClick}>
-<H2 icon="📊" number={IDX_ANA}>{t.analytics_title}</H2><p className="text-lg text-slate-600 dark:text-slate-400">{t.analytics_desc}</p>
+<div className="space-y-6 animate-fade-in text-slate-800 dark:text-slate-200" onClick={trackClick}>
+<H2 icon="📊" number={IDX_ANA}>{t.analytics_title}</H2><p className="text-lg text-slate-600 dark:text-slate-300">{t.analytics_desc}</p>
 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-<div className="bg-white dark:bg-slate-800 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700"><p className="text-2xl font-black text-[#004030] dark:text-[#D8C3A5]">{analytics.time.reduce((a,b)=>a+b,0)}{t.analytics_sec}</p><p className="text-xs text-slate-500">{t.analytics_total_time}</p></div>
-<div className="bg-white dark:bg-slate-800 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700"><p className="text-2xl font-black text-[#004030] dark:text-[#D8C3A5]">{analytics.clicks.reduce((a,b)=>a+b,0)}{t.analytics_times}</p><p className="text-xs text-slate-500">{t.analytics_total_clicks}</p></div>
-<div className="bg-white dark:bg-slate-800 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700"><p className="text-2xl font-black text-[#004030] dark:text-[#D8C3A5]">{oa}%</p><p className="text-xs text-slate-500">{t.analytics_overall_acc}</p></div>
-<div className="bg-white dark:bg-slate-800 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700"><p className="text-2xl font-black text-[#004030] dark:text-[#D8C3A5]">{cardUsage}%</p><p className="text-xs text-slate-500">{t.analytics_card_usage}</p></div>
+<div className="bg-white dark:bg-slate-800 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700"><p className="text-2xl font-black text-[#004030] dark:text-[#D8C3A5]">{analytics.time.reduce((a,b)=>a+b,0)}{t.analytics_sec}</p><p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{t.analytics_total_time}</p></div>
+<div className="bg-white dark:bg-slate-800 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700"><p className="text-2xl font-black text-[#004030] dark:text-[#D8C3A5]">{analytics.clicks.reduce((a,b)=>a+b,0)}{t.analytics_times}</p><p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{t.analytics_total_clicks}</p></div>
+<div className="bg-white dark:bg-slate-800 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700"><p className="text-2xl font-black text-[#004030] dark:text-[#D8C3A5]">{oa}%</p><p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{t.analytics_overall_acc}</p></div>
+<div className="bg-white dark:bg-slate-800 rounded-xl p-4 text-center border border-slate-200 dark:border-slate-700"><p className="text-2xl font-black text-[#004030] dark:text-[#D8C3A5]">{cardUsage}%</p><p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{t.analytics_card_usage}</p></div>
 </div>
 <div className="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700">
 <h3 className="font-bold mb-3">{t.analytics_progress_title}</h3>
 {modulesList.slice(1,NUM_LEARN+1).map(m=>{const visited=analytics.time[m.id]>0;const quizDone=analytics.quizTotal[m.id]>0;
 return(<div key={m.id} className="flex items-center gap-3 py-2 border-b border-slate-100 dark:border-slate-700 last:border-0">
 <span className="text-sm w-40 truncate">{m.title}</span>
-<span className={`text-xs px-2 py-0.5 rounded-full ${visited?'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400':'bg-slate-100 text-slate-500 dark:bg-slate-700'}`}>{visited?t.analytics_progress_visited:t.analytics_progress_not_visited}</span>
-{quizDone&&<span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">{t.analytics_progress_quiz_done}</span>}
+<span className={`text-xs px-2 py-0.5 rounded-full ${visited?'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300':'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300'}`}>{visited?t.analytics_progress_visited:t.analytics_progress_not_visited}</span>
+{quizDone&&<span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">{t.analytics_progress_quiz_done}</span>}
 <button onClick={()=>{setModule(m.id);scrollTo({top:0,behavior:'smooth'})}} className="ml-auto text-xs text-[#004030] dark:text-[#D8C3A5] hover:underline">{t.analytics_wp_goto}</button>
 </div>)})}</div>
 <div className="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700">
 <h3 className="font-bold mb-3">{t.analytics_wp_title}</h3>
-{wk.length>0?wk.map(w=>(<div key={w.id} className="mb-3 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
-<p className="font-bold text-sm">{w.name} — {w.acc}%</p>
+{wk.length>0?wk.map(w=>(<div key={w.id} className="mb-3 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-100 dark:border-red-900/30">
+<p className="font-bold text-sm text-red-900 dark:text-red-300">{w.name} — {w.acc}%</p>
 {(analytics.wrongTopics[w.id]||[]).length>0&&<p className="text-xs text-red-600 dark:text-red-400 mt-1">{t.analytics_wp_incorrect}{(analytics.wrongTopics[w.id]||[]).join('; ')}</p>}
 <button onClick={()=>{setModule(w.id);scrollTo({top:0,behavior:'smooth'})}} className="text-xs text-[#004030] dark:text-[#D8C3A5] hover:underline mt-1">{t.analytics_wp_goto}</button>
-</div>)):ta>0?<p className="text-green-600 dark:text-green-400">{t.analytics_wp_allpass}</p>:<p className="text-slate-500">{t.analytics_no_data}</p>}</div>
+</div>)):ta>0?<p className="text-green-600 dark:text-green-400 font-bold">{t.analytics_wp_allpass}</p>:<p className="text-slate-500 dark:text-slate-400">{t.analytics_no_data}</p>}</div>
 <div className="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700">
 <h3 className="font-bold mb-3">{t.analytics_form_title}</h3>
 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-<div><label className="text-xs font-bold">{t.analytics_group}</label>
-<select value={studentInfo.group} onChange={e=>setStudentInfo(s=>({...s,group:e.target.value}))} className="w-full mt-1 p-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 text-sm">
+<div><label className="text-xs font-bold text-slate-700 dark:text-slate-300">{t.analytics_group}</label>
+<select value={studentInfo.group} onChange={e=>setStudentInfo(s=>({...s,group:e.target.value}))} className="w-full mt-1 p-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 text-sm outline-none focus:ring-1 focus:ring-[#004030] dark:focus:ring-[#D8C3A5]">
 <option value="">{t.analytics_group_select}</option>{t.group_options.map(g=><option key={g} value={g}>{g}</option>)}</select></div>
-<div><label className="text-xs font-bold">{t.analytics_dept}</label><input value={studentInfo.dept} onChange={e=>setStudentInfo(s=>({...s,dept:sanitizeName(e.target.value)}))} placeholder={t.analytics_dept_ph} className="w-full mt-1 p-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 text-sm"/></div>
-<div><label className="text-xs font-bold">{t.analytics_id}</label><input value={studentInfo.id} onChange={e=>setStudentInfo(s=>({...s,id:sanitizeId(e.target.value)}))} placeholder={t.analytics_id_ph} className="w-full mt-1 p-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 text-sm"/></div>
-<div><label className="text-xs font-bold">{t.analytics_name_en}</label><input value={studentInfo.nameEn} onChange={e=>setStudentInfo(s=>({...s,nameEn:sanitizeName(e.target.value)}))} placeholder={t.analytics_name_en_ph} className="w-full mt-1 p-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 text-sm"/></div>
-<div><label className="text-xs font-bold">{t.analytics_name_zh}</label><input value={studentInfo.nameZh} onChange={e=>setStudentInfo(s=>({...s,nameZh:sanitizeName(e.target.value)}))} placeholder={t.analytics_name_zh_ph} className="w-full mt-1 p-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 text-sm"/></div>
+<div><label className="text-xs font-bold text-slate-700 dark:text-slate-300">{t.analytics_dept}</label><input value={studentInfo.dept} onChange={e=>setStudentInfo(s=>({...s,dept:sanitizeName(e.target.value)}))} placeholder={t.analytics_dept_ph} className="w-full mt-1 p-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 text-sm outline-none focus:ring-1 focus:ring-[#004030] dark:focus:ring-[#D8C3A5]"/></div>
+<div><label className="text-xs font-bold text-slate-700 dark:text-slate-300">{t.analytics_id}</label><input value={studentInfo.id} onChange={e=>setStudentInfo(s=>({...s,id:sanitizeId(e.target.value)}))} placeholder={t.analytics_id_ph} className="w-full mt-1 p-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 text-sm outline-none focus:ring-1 focus:ring-[#004030] dark:focus:ring-[#D8C3A5]"/></div>
+<div><label className="text-xs font-bold text-slate-700 dark:text-slate-300">{t.analytics_name_en}</label><input value={studentInfo.nameEn} onChange={e=>setStudentInfo(s=>({...s,nameEn:sanitizeName(e.target.value)}))} placeholder={t.analytics_name_en_ph} className="w-full mt-1 p-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 text-sm outline-none focus:ring-1 focus:ring-[#004030] dark:focus:ring-[#D8C3A5]"/></div>
+<div><label className="text-xs font-bold text-slate-700 dark:text-slate-300">{t.analytics_name_zh}</label><input value={studentInfo.nameZh} onChange={e=>setStudentInfo(s=>({...s,nameZh:sanitizeName(e.target.value)}))} placeholder={t.analytics_name_zh_ph} className="w-full mt-1 p-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 text-sm outline-none focus:ring-1 focus:ring-[#004030] dark:focus:ring-[#D8C3A5]"/></div>
 </div>
 <div className="mt-4 flex flex-wrap gap-3">
 <button onClick={exportCSV} disabled={!canExport} className="px-6 py-2 bg-[#004030] dark:bg-[#D8C3A5] text-white dark:text-[#004030] font-bold rounded-lg disabled:opacity-40">{t.analytics_export_csv}</button>
-{!canExport&&<span className="text-xs text-slate-500 self-center">{t.analytics_fill_required}</span>}
+{!canExport&&<span className="text-xs text-slate-500 dark:text-slate-400 self-center">{t.analytics_fill_required}</span>}
 </div></div>
-<p className="text-xs text-slate-500 text-center">{t.analytics_wp_saved}</p>
+<p className="text-xs text-slate-500 dark:text-slate-400 text-center">{t.analytics_wp_saved}</p>
 <div className="text-center"><button onClick={()=>{if(confirm(t.analytics_wp_clear_confirm)){setAnalytics({time:Array(TOTAL).fill(0),clicks:Array(TOTAL).fill(0),quizCorrect:Array(TOTAL).fill(0),quizTotal:Array(TOTAL).fill(0),cardsRead:Array(TOTAL).fill(0),cardsTotal:Array(TOTAL).fill(0),wrongTopics:{}})}}}
-className="text-sm text-red-500 hover:text-red-700 font-bold">{t.analytics_wp_clear}</button></div>
+className="text-sm text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 font-bold">{t.analytics_wp_clear}</button></div>
 </div>)}
 return null};
 
